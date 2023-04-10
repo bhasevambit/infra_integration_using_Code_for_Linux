@@ -1,0 +1,45 @@
+- name: OS Version Check and Apt update/upgrade
+
+  hosts: raspi, jetson, ubuntu_on_wsl
+
+  tasks:
+    - name: Get OS Version
+      ansible.builtin.command: cat /etc/os-release
+      register: result_os_version
+      changed_when: result_os_version.rc != 0
+    - name: Check Error of "Get OS Version"
+      ansible.builtin.debug:
+        var: result_os_version.stderr_lines
+    - name: Check Result of "Get OS Version"
+      ansible.builtin.debug:
+        var: result_os_version.stdout_lines
+
+    - name: Apt update
+      ansible.builtin.apt:
+        name: "*"
+        update_cache: true
+        state: present
+      become: true
+      register: result_apt_update
+    - name: Check result of "Apt update"
+      ansible.builtin.debug:
+        var: result_apt_update
+
+    - name: Apt upgrade
+      ansible.builtin.apt:
+        upgrade: true
+        state: present
+      become: true
+      register: result_apt_upgrade
+    - name: Check result_changed of "Apt upgrade"
+      ansible.builtin.debug:
+        var: result_apt_upgrade.changed
+    - name: Check result_failed of "Apt upgrade"
+      ansible.builtin.debug:
+        var: result_apt_upgrade.failed
+    - name: Check result_stderr of "Apt upgrade"
+      ansible.builtin.debug:
+        var: result_apt_upgrade.stderr_lines
+    - name: Check result_stdout of "Apt upgrade"
+      ansible.builtin.debug:
+        var: result_apt_upgrade.stdout_lines
