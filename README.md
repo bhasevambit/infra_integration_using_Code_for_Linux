@@ -9,4 +9,5 @@ This Repository is Infrastructure Integration for Linux using "Ansible" IaC.
 ## Note
 
 - "hosts" File is needed
-- "group_vars" Dir and variable File is needed
+- "group_vars" Dir and variable Files(./group_vars/*.yml) is needed
+- It is recommended to variable Files(./group_vars/*.yml) are  encrypted
