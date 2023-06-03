@@ -1,6 +1,6 @@
 - name: OS Version Check and Apt update/upgrade
 
-  hosts: raspi, jetson, ubuntu_on_wsl
+  hosts: raspi, sound_visual_raspi, jetson, ubuntu_on_wsl
 
   tasks:
     - name: Get OS Version
