@@ -3,6 +3,17 @@
   hosts: raspi, sound_visual_raspi, jetson, ubuntu_on_wsl
 
   tasks:
+    - name: Get OS Kernel Version
+      ansible.builtin.command: uname -a
+      register: result_os_kernel_version
+      changed_when: result_os_kernel_version.rc != 0
+    - name: Check Error of "Get OS Kernel Version"
+      ansible.builtin.debug:
+        var: result_os_kernel_version.stderr_lines
+    - name: Check Result of "Get OS Kernel Version"
+      ansible.builtin.debug:
+        var: result_os_kernel_version.stdout_lines
+
     - name: Get OS Version
       ansible.builtin.command: cat /etc/os-release
       register: result_os_version
